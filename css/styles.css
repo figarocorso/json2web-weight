@@ -1,5 +1,5 @@
 body {
-  background-color: #fdfd8a;
+  background-color: #ffffb3;
 }
 
 .container {
@@ -9,7 +9,7 @@ body {
 }
 
 .number {
-  font-size: 20vw;
+  font-size: 40vw;
   font-family: Gill Sans Extrabold, sans-serif;
   font-weight: bold;
   color: #436245;
