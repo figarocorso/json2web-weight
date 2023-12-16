@@ -2,30 +2,17 @@ function last(array) {
   return array[array.length - 1];
 }
 
-$( document ).ready(function() {
-  var getUrl = window.location;
-  var baseUrl = getUrl.href;
-  var weightData = [];
-  // $.getJSON(baseUrl + "data/weight.json").then(function (data) {
-  //     weightData = data;
-  // });
-
-  weightData = [
-    { "date": "2023-12-01", "weight": 116 },
-    { "date": "2023-12-02", "weight": 115 },
-    { "date": "2023-12-03", "weight": 110 },
-    { "date": "2023-12-04", "weight": 115 },
-    { "date": "2023-12-05", "weight": 112 }
-  ];
-
+function updateNumber(data) {
   var numberElement = document.querySelector('.number');
-  numberElement.innerHTML = last(weightData).weight;
+  numberElement.innerHTML = last(data).weight;
+}
 
-  var dates = weightData.map(function (e) {
+function renderChart(data) {
+  var dates = data.map(function (e) {
     return e.date;
   });
 
-  var weights = weightData.map(function (e) {
+  var weights = data.map(function (e) {
     return e.weight;
   });
   
@@ -44,4 +31,23 @@ $( document ).ready(function() {
   };
   
   var chart = new Chart(ctx, config);
+}
+$( document ).ready(function() {
+  var getUrl = window.location;
+  var baseUrl = getUrl.href;
+  var weightData = [];
+  // $.getJSON(baseUrl + "data/weight.json").then(function (data) {
+  //     weightData = data;
+  // });
+
+  weightData = [
+    { "date": "2023-12-01", "weight": 116 },
+    { "date": "2023-12-02", "weight": 115 },
+    { "date": "2023-12-03", "weight": 110 },
+    { "date": "2023-12-04", "weight": 115 },
+    { "date": "2023-12-05", "weight": 112 }
+  ];
+
+  updateNumber(weightData);
+  renderChart(weightData);
 })
