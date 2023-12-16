@@ -1,0 +1,112 @@
+<html>
+
+<head>
+  <!-- Añadir el enlace al CDN de chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #fdfd8a;
+      /* Fondo amarillo */
+    }
+
+    .container {
+      display: flex;
+      /* Flexbox para centrar el contenido */
+      align-items: center;
+      /* Alineación vertical */
+      justify-content: center;
+      /* Alineación horizontal */
+    }
+
+    .number {
+      font-size: 20vw;
+      /* Tamaño de fuente proporcional al ancho del viewport */
+      font-family: Gill Sans Extrabold, sans-serif;
+      /* Tipografía diferente */
+      font-weight: bold;
+      /* Negrita */
+      color: #436245;
+      /* Letras negras */
+    }
+  </style>
+  <script>
+    // Función para obtener el último elemento de un array
+    function last(array) {
+      return array[array.length - 1];
+    }
+    // Función para cargar el JSON desde un archivo local
+    function loadJSON(callback) {
+      var xobj = new XMLHttpRequest();
+      xobj.overrideMimeType("application/json");
+      xobj.open('GET', 'data.json', true); // Reemplaza 'data.json' por el nombre de tu archivo
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+          callback(xobj.responseText);
+        }
+      };
+      xobj.send(null);
+    }
+    // Función para mostrar el valor del JSON en el elemento con clase 'number'
+    function showValue() {
+      loadJSON(function (response) {
+        var data = JSON.parse(response); // Parsea el JSON
+        var value = last(data).weight; // Obtiene el valor más reciente de "weight"
+        var element = document.querySelector('.number'); // Selecciona el elemento con clase 'number'
+        element.innerHTML = value; // Muestra el valor en el elemento
+      });
+    }
+  </script>
+</head>
+
+<body onload="showValue()"> <!-- Llama a la función showValue al cargar el cuerpo -->
+  <div class="container">
+    <div class="number">
+      <!-- Valor por defecto de 113 -->
+      113
+    </div>
+  </div> <!-- Añadir el elemento canvas donde se dibujará el gráfico -->
+  <canvas id="myChart" style="width:100%"></canvas>
+
+  <!-- Añadir el código javascript que crea el gráfico con los datos del json -->
+  <script>
+    // El json original
+    var json = [
+      { "date": "2023-12-01", "weight": 116 },
+      { "date": "2023-12-02", "weight": 115 },
+      { "date": "2023-12-03", "weight": 110 },
+      { "date": "2023-12-04", "weight": 115 },
+      { "date": "2023-12-05", "weight": 113 },
+    ];
+
+    // Extraer las fechas y los pesos en dos arreglos
+    var dates = json.map(function (e) {
+      return e.date;
+    });
+    var weights = json.map(function (e) {
+      return e.weight;
+    });
+
+    // Obtener el elemento canvas donde se dibujará el gráfico
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    // Crear la configuración del gráfico
+    var config = {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Peso en kg',
+          data: weights,
+          backgroundColor: 'rgba(0, 119, 204, 0.3)'
+        }]
+      }
+    };
+
+    // Crear el gráfico
+    var chart = new Chart(ctx, config);
+  </script>
+</body>
+
+</html>
