@@ -1,0 +1,16 @@
+body {
+  background-color: #fdfd8a;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number {
+  font-size: 20vw;
+  font-family: Gill Sans Extrabold, sans-serif;
+  font-weight: bold;
+  color: #436245;
+}
