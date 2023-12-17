@@ -35,7 +35,9 @@ function renderChart(data) {
       datasets: [{
         label: 'Peso en kg',
         data: weights,
-        backgroundColor: 'rgba(0, 119, 204, 0.3)'
+        backgroundColor: 'rgba(0, 255, 0, 0.3)',
+	borderColor: 'rgba(0, 255, 0, 1)',
+	color: 'rgba(255, 0, 0, 1)'
       }]
     }
   };
